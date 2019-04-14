@@ -1,0 +1,37 @@
+{% extends "tournament/base.html" %}
+
+{% block title %}
+  LeaderBoard
+{% endblock %}
+
+{% block body %}
+  <h1 class="text-center">LeaderBoard</h1>
+  <h4 class="text-center">Select Sport</h4>
+  <div class="container">
+    {% if teams %}
+        <!-- <div style="padding: 50px" class="container-fluid"> -->
+        <table class="table table-striped">
+        <thead>
+          <tr>
+            <th class="text-center">#</th>
+            <th class="text-center">Team</th>
+            <th class="text-center">Score</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for team in teams %}
+          <tr>
+            <td class="text-center">{{ forloop.counter|add:offset }}</td>
+            <td class="text-center">{{ team.team.all.0 }} & {{team.team.all.1}}</td>
+            <td class="text-center">{{ team.score }}</td>
+          </tr>
+        <tbody>
+        {% endfor %}
+        </table>
+    <div style="padding: 10px"><a href="{% url 'leaderboard' sport_id offset|add:limit limit %}">Next</a></div>
+    {% else %}
+      <div>No Team Found</div>
+    {% endif %}
+    </div>
+  <div class="container text center" style="padding: 20px"><a href="{% url 'index' %}">Return to home.</a></div>
+{% endblock %}

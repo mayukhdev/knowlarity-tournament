@@ -4,7 +4,6 @@ from django.urls import reverse
 
 from .models import Sport, Team, Employee
 from django.http import JsonResponse
-from ast import literal_eval
 
 
 MAX_PER_TEAM = 2
@@ -70,10 +69,10 @@ def addscore(request):
                 fetch_first_id = [id.id for id in first_team[first_team_index].team.all()]
                 fetch_second_id = [id.id for id in first_team[first_team_index+1].team.all()]
                 common_team_id = set(fetch_first_id).intersection(set(fetch_second_id))
-                print(sport)
-                print(fetch_first_id)
-                print(fetch_second_id)
-                print(common_team_id)
+                # print(sport)
+                # print(fetch_first_id)
+                # print(fetch_second_id)
+                # print(common_team_id)
                 # if len(common_team_id) not in [0, 1]:
                 #     return render(request, "tournament/error.html", {"message": "Invalid teams"})
                 # Team does exist but not common
@@ -118,12 +117,19 @@ def leaderboard(request, sport_id=None, offset=0, limit=10):
         try:
             if int(sport_id) in [1, 2]:
                 context = {
-                    "teams": Team.objects.filter(sport=1).order_by('-score')[offset:limit],
+                    "teams": Team.objects.filter(sport=int(sport_id)).order_by('-score')[int(offset):int(limit)],
+                    "offset": int(offset),
+                    "limit": int(limit),
+                    "sport_id": int(sport_id)
                 }
             else:
                 return render(request, "tournament/error.html", {"message": "Improper Sport"})
         except ValueError:
             return render(request, "tournament/error.html", {"message": "Invalid Sport"})
+        except Exception as error:
+            return render(request, "tournament/error.html", {"message": str(error)})
+
+        return render(request, "tournament/leaderboard-view.html", context)
 
 
 def autocomplete(request):
