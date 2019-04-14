@@ -12,7 +12,7 @@
         {% for sport in sports %}
           <div class="row hidden-xs">
           <div style="padding: 2px" class="col">
-            <button type="button" class="btn btn-info btn-block" href="{% url 'leaderboard' sport.id %}">{{ sport.get_name_display }}</button>
+            <a href="{% url 'leaderboard' sport.id 0 10 %}"><button type="button" class="btn btn-info btn-block">{{ sport.get_name_display }}</button></a>
           </div>
           </div>
         {% endfor %}
