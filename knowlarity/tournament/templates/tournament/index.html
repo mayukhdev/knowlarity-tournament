@@ -1,0 +1,15 @@
+{% extends "tournament/base.html" %}
+
+{% block title %}
+  Knowlarity Games
+{% endblock %}
+
+{% block body %}
+  <h1>Knowlarity Games</h1>
+  <div>
+    <a href="{% url 'bookscore' %}">Add Score</a>
+  </div>
+  <div>
+    <a href="#">View Leaderboard</a>
+  </div>
+{% endblock %}
