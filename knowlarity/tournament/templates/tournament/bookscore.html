@@ -1,0 +1,40 @@
+{% extends "tournament/base.html" %}
+
+{% block title %}
+  Knowlarity Games
+{% endblock %}
+
+{% block body %}
+  <h1>Submit Score</h1>
+  <h4>Select Teams</h4>
+  <div class="container-fluid">
+    {% if employees %}
+      <form action="{% url 'addscore' %}" method="post">
+        {% csrf_token %}
+        {% for max_team in max_team_per_event %}
+          <div class="row">
+          {% for max_team_size in max_per_team %}
+            <div class="col-sm">
+              Team {{ max_team|add:"1" }}
+              <select name="EMP_{{ max_team }}_{{ max_team_size }}">
+                <option selected></option>
+              {% for employee in employees %}
+                <option value="{{ employee.id }}">{{ employee }}</option>
+              {% endfor %}
+              </select>
+            </div>
+          {% endfor %}
+          </div>
+          {% if max_team < max_team_per_event|length|add:"-1" %}
+            <hr>
+          {% endif %}
+        {% endfor %}
+      <div class="container-fluid text-center">
+        <input id="bookscoresubmit" class="btn btn-primary center-block" type="submit" value="Book Team">
+      </div>
+    </form>
+    {% else %}
+      <div>No employees to add</div>
+    {% endif %}
+  </div>
+{% endblock %}
