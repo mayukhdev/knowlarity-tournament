@@ -1,0 +1,26 @@
+{% extends "tournament/base.html" %}
+
+{% block title %}
+  LeaderBoard
+{% endblock %}
+
+{% block body %}
+  <h1 class="text-center">LeaderBoard</h1>
+  <h4 class="text-center">Select Sport</h4>
+    {% if sports %}
+        <div style="padding: 50px" class="container-fluid">
+        {% for sport in sports %}
+          <div class="row hidden-xs">
+          <div style="padding: 2px" class="col">
+            <button type="button" class="btn btn-info btn-block" href="{% url 'leaderboard' sport.id %}">{{ sport.get_name_display }}</button>
+          </div>
+          </div>
+        {% endfor %}
+        </div>
+        </div>
+    {% else %}
+      <div>No Sport added</div>
+    {% endif %}
+    </div>
+  <div style="padding: 20px"><a href="{% url 'index' %}">Return to home.</a></div>
+{% endblock %}
