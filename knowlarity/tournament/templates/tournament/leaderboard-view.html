@@ -6,7 +6,7 @@
 
 {% block body %}
   <h1 class="text-center">LeaderBoard</h1>
-  <h4 class="text-center">Select Sport</h4>
+  <h4 class="text-center">{{ sport_name.get_name_display }}</h4>
   <div class="container">
     {% if teams %}
         <!-- <div style="padding: 50px" class="container-fluid"> -->
@@ -28,7 +28,7 @@
         <tbody>
         {% endfor %}
         </table>
-    <div style="padding: 10px"><a href="{% url 'leaderboard' sport_id offset|add:limit limit %}">Next</a></div>
+    <div style="padding: 10px"><a href="{% url 'leaderboard' sport_id limit limit|add:'10' %}">Next</a></div>
     {% else %}
       <div>No Team Found</div>
     {% endif %}
