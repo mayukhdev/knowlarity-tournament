@@ -120,7 +120,8 @@ def leaderboard(request, sport_id=None, offset=0, limit=10):
                     "teams": Team.objects.filter(sport=int(sport_id)).order_by('-score')[int(offset):int(limit)],
                     "offset": int(offset),
                     "limit": int(limit),
-                    "sport_id": int(sport_id)
+                    "sport_id": int(sport_id),
+                    "sport_name": Sport.objects.get(pk=int(sport_id))
                 }
             else:
                 return render(request, "tournament/error.html", {"message": "Improper Sport"})

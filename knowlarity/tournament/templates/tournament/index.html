@@ -5,11 +5,35 @@
 {% endblock %}
 
 {% block body %}
-  <h1>Knowlarity Games</h1>
-  <div>
+  <!-- <div>
     <a href="{% url 'bookscore' %}">Add Score</a>
   </div>
   <div>
     <a href="{% url 'leaderboard' %}">View Leaderboard</a>
   </div>
+  <div class="container"> -->
+  <h1 class="text-center">Knowlarity Games</h1>
+  <section class="text-center" style="padding: 20px;">
+      <div style="padding: 100px;" class="row">
+        <div class="col-lg-6">
+          <div class="card mb-5 mb-lg-0">
+            <div class="card-body">
+              <h5 class="card-title text-muted text-uppercase text-center">Add Teams & Score</h5>
+              <h6 class="card-price text-center">0-9</h6>
+              <hr>
+              <a href="{% url 'bookscore' %}" class="btn btn-block btn-primary text-uppercase">Click</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="card mb-5 mb-lg-0">
+            <div class="card-body">
+              <h5 class="card-title text-muted text-uppercase text-center">View LeaderBoard</h5>
+              <h6 class="card-price text-center">Table Tennis/Foosball</h6>
+              <hr>
+              <a href="{% url 'leaderboard' %}" class="btn btn-block btn-primary text-uppercase">Click</a>
+            </div>
+          </div>
+        </div>
+  </section>
 {% endblock %}
