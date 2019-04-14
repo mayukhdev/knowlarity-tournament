@@ -14,12 +14,12 @@ class Sport(models.Model):
 
 
 class Team(models.Model):
-    name = models.CharField(max_length=64)
+    name = models.CharField(max_length=64, blank=True)
     sport = models.ForeignKey(Sport, on_delete=models.CASCADE, related_name="sports")
     score = models.IntegerField(default=0)
 
     def __str__(self):
-        return "{} : {} Score: {}".format(self.sport, self.name, self.score)
+        return "{} {} : {} Score: {}".format(self.pk, self.sport, self.name, self.score)
 
 
 class Employee(models.Model):

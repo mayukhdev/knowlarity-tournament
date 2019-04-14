@@ -1,21 +1,27 @@
 {% extends "tournament/base.html" %}
 
 {% block title %}
-  Knowlarity Games
+  Submit Score
 {% endblock %}
 
 {% block body %}
-  <h1>Submit Score</h1>
-  <h4>Select Teams</h4>
-  <div class="container-fluid">
+  <h1 class="text-center">Submit Score</h1>
+  <div style="height: 400px; top: 30%; position: fixed; margin-top: -50px;" class="container-fluid">
+  <h4 class="text-center">Select Teams and Enter Score</h4>
     {% if employees %}
       <form action="{% url 'addscore' %}" method="post">
         {% csrf_token %}
+        Sport: <select name="sport">
+        {% for sport in sports %}
+          <option value="{{ sport.id }}">{{ sport.get_name_display }}</option>
+        {% endfor %}
+        </select>
+        <div style="padding: 20px"></div>
         {% for max_team in max_team_per_event %}
           <div class="row">
+          <div class="col">Team {{ max_team|add:"1" }}</div>
           {% for max_team_size in max_per_team %}
-            <div class="col-sm">
-              Team {{ max_team|add:"1" }}
+            <div class="col text-center">
               <select name="EMP_{{ max_team }}_{{ max_team_size }}">
                 <option selected></option>
               {% for employee in employees %}
@@ -24,12 +30,13 @@
               </select>
             </div>
           {% endfor %}
+          <input class="col-xs text-center" placeholder="Score" name="TEAM_SCORE_{{ max_team }}">
           </div>
           {% if max_team < max_team_per_event|length|add:"-1" %}
             <hr>
           {% endif %}
         {% endfor %}
-      <div class="container-fluid text-center">
+      <div class="text-center" style="padding: 50px";>
         <input id="bookscoresubmit" class="btn btn-primary center-block" type="submit" value="Book Team">
       </div>
     </form>
@@ -37,4 +44,5 @@
       <div>No employees to add</div>
     {% endif %}
   </div>
+  <div><a href="{% url 'index' %}">Return to home.</a></div>
 {% endblock %}
